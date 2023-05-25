@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/linka/static/css/main.3c27f910.css",
-    "main.js": "/linka/static/js/main.cb31aae1.js",
-    "static/media/Mercado-Pago-Logo.png": "/linka/static/media/Mercado-Pago-Logo.691985687187510422b8.png",
+    "main.css": "/linka/static/css/main.bcc9429c.css",
+    "main.js": "/linka/static/js/main.00c890d7.js",
+    "static/media/Mercado-Pago-Logo.png": "/linka/static/media/Mercado-Pago-Logo.977272cf5e670f2fd3ff.png",
+    "static/media/logo.png": "/linka/static/media/logo.adc0edb9507eeb16b276.png",
     "index.html": "/linka/index.html",
-    "main.3c27f910.css.map": "/linka/static/css/main.3c27f910.css.map",
-    "main.cb31aae1.js.map": "/linka/static/js/main.cb31aae1.js.map"
+    "main.bcc9429c.css.map": "/linka/static/css/main.bcc9429c.css.map",
+    "main.00c890d7.js.map": "/linka/static/js/main.00c890d7.js.map"
   },
   "entrypoints": [
-    "static/css/main.3c27f910.css",
-    "static/js/main.cb31aae1.js"
+    "static/css/main.bcc9429c.css",
+    "static/js/main.00c890d7.js"
   ]
 }
