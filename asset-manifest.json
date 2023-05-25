@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/linka/static/css/main.3c27f910.css",
+    "main.js": "/linka/static/js/main.cb31aae1.js",
+    "static/media/Mercado-Pago-Logo.png": "/linka/static/media/Mercado-Pago-Logo.691985687187510422b8.png",
+    "index.html": "/linka/index.html",
+    "main.3c27f910.css.map": "/linka/static/css/main.3c27f910.css.map",
+    "main.cb31aae1.js.map": "/linka/static/js/main.cb31aae1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3c27f910.css",
+    "static/js/main.cb31aae1.js"
+  ]
+}
